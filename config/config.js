@@ -1,9 +1,10 @@
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 
 dotenv.config({path: ".env"});
 
 const config = {
+    portApp: process.env.PORT,
     dbURI : process.env.DB_URI
 }
 
-module.exports = { config }
+export { config }
