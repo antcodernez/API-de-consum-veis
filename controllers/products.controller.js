@@ -5,7 +5,7 @@ const productController = {};
 productController.getAll = (req, res) => {
     productDao.getAll()
     .then(products=>{
-        res.json(products);
+        res.render("../views/index.ejs", {products});
     })
     .catch(err=>{
         res.json({
@@ -33,18 +33,36 @@ productController.getOne = (req, res) => {
 }
 
 productController.insertOne = (req, res) => {
-    productDao.insertOne(req.body)
-    .then(result=>{
-        res.json({
-            status:result
-        })
-    })
-    .catch(err=>{
-        res.json({
-            status:"request failed",
-            message:err
-        })
-    });
+    const { body } = req.body;
+    const data = {
+        status: null
+    }
+
+    if (body.status == "off")
+        {
+            data.status = false;
+            data = {...body};
+        }
+    else
+        {
+            data.status = true;
+            data = {...body};
+
+        }
+    console.log(req.body);
+    console.log(data);
+    // productDao.insertOne(req.body)
+    // .then(result=>{
+    //     res.json({
+    //         status:result
+    //     })
+    // })
+    // .catch(err=>{
+    //     res.json({
+    //         status:"request failed",
+    //         message:err
+    //     })
+    // });
 }
 
 
